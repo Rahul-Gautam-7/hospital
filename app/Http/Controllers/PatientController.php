@@ -26,10 +26,27 @@ class PatientController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data=Patient::paginate(10);
-        return view('user.index',compact('data'));
+        $gender = $request['gender']??"";
+        if ($gender != "")
+        {
+            $data = Patient::where('gender','LIKE',$gender)->paginate();
+            return view('user.index',compact('data'));
+        }
+
+        $search = $request['search']??"";
+        if ($search != "")
+        {
+            $data = Patient::where('name','LIKE',"%$search%")->paginate();
+            return view('user.index',compact('data'));
+        }
+        else
+        {
+            $data=Patient::paginate(10);
+            return view('user.index',compact('data','search'));
+           
+        }
     }
 
     /**
