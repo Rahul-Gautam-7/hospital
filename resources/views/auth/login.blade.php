@@ -44,5 +44,6 @@
                 </x-button>
             </div>
         </form>
+        <div><a href="{{ route('register') }}" ">Register</a></div>
     </x-authentication-card>
 </x-guest-layout>
